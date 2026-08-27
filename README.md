@@ -1,130 +1,39 @@
 # ThingsBoard Automation Project
 
-This project contains automated UI and API tests for the ThingsBoard demo application.
+This project contains automated **UI and API tests** for the ThingsBoard Demo application.
 
-## Project Scope
-
-The project covers:
-```
+The project includes:
 
 - UI Automation using Python, Pytest, and Playwright
 - API Automation using Python, Pytest, and Requests
-## Required tools
-
-- Python 3.10 or later
-- uv
-- Visual Studio Code
 - Test cases and bug reports in Excel
+- Screenshot evidence for UI test execution
 
 ---
-```bash
 
-```
 ## Application Under Test
 
-
-```bash
-**ThingsBoard Demo:**
-```
-
+**ThingsBoard Demo:**  
 https://demo.thingsboard.io
 
-1. Clone the repository:
+---
 
-  ```bash
+## Project Structure
 
-  ```
-## Test Coverage
-2. Create and install dependencies:
-
-  ```bash
-### UI Automation
-  ```
-
-3. Install Playwright browsers:
-
-  ```bash
-
-  ```
-Covered scenarios:
-4. Configure environment variables by creating a `.env` file in the project root:
-- Navigate to Dashboards
 ```text
-- Open the Device Telemetry Dashboard
-- Validate streaming data widgets are visible
-- Validate widget labels such as:
-  - Temperature
-  - Humidity
-  - Power Consumption
-  ```
-- Validate that telemetry values are updating
-  ```env
-- Capture screenshots as test evidence
-
-### API Automation
-  ```
-
-The API automation validates ThingsBoard REST APIs.
-
-Covered scenarios:
-  ## UI tests
-
-  ```bash
-- Authenticate using:
-  ```
-
-  Run UI tests in headed mode:
-
-  ```bash
-
-  ```
-- Obtain the JWT authentication token
-  ## API tests
-
-  ```bash
-- Extract the Device ID
-  ```
-- Fetch telemetry data using:
-  ## All tests
-
-  ```bash
-  `GET /api/plugins/telemetry/DEVICE/{deviceId}/values/timeseries`
-  ```
-
-- Validate API response status
-
-  ## UI automation
-
-  - Login to ThingsBoard
-  - Navigate to the Device Telemetry Dashboard
-  - Validate telemetry widgets are visible
-  - Validate widget labels
-  - Validate widgets are updating
-  - Validate telemetry values are within an acceptable range
-  - Capture screenshots as evidence
-
-  ## API automation
-
-  - Authenticate and obtain a JWT token
-  - Fetch devices and extract the Device ID
-  - Fetch device telemetry
-  - Validate response structure
-  - Validate telemetry fields and value types
-  - Retry API requests when telemetry data is not available
-
-  ## Test evidence
+thingsboard-automation/
+│
+├── src/
+│   └── thingsboard_automation/
+│       │
 │       ├── pages/
-  Screenshots generated during UI tests are stored in:
+│       │   ├── login_page.py
 │       │   └── dashboard_page.py
-  `evidence/ui/`
-
-  ## Test documentation
-
-  - Test cases: `test_data/test_cases.xlsx`
-  - Bug reports: `test_data/bug_report.xlsx`
-
-  ## Notes
-
+│       │
+│       ├── tests/
+│       │   ├── ui/
+│       │   │   └── test_dashboard_ui.py
+│       │   │
 │       │   └── api/
 │       │       └── test_api_telemetry.py
 │       │
@@ -135,7 +44,7 @@ Covered scenarios:
 │
 ├── evidence/
 │   └── ui/
-│       └── screenshots
+│       └── screenshots/
 │
 ├── test_data/
 │   ├── test_cases.xlsx
@@ -145,86 +54,180 @@ Covered scenarios:
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
+```
 
-# Prerequisites
+---
 
-## Make sure the following are installed:
-Python 3.10 or later
-uv
-Visual Studio Code
+## Prerequisites
 
-Check Python installation:
+Make sure the following are installed:
+
+- Python 3.10 or later
+- uv
+- Visual Studio Code
+
+### Check Python Installation
+
+```bash
 python --version
+```
 
-Check uv installation:
+### Check uv Installation
+
+```bash
 uv --version
+```
 
-# Setup
+---
 
-1. Clone the Repository
+## Setup
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Abhilashbabu25/thingsboard_automation.git
+```
 
-2. Create and Install Dependencies
+Navigate to the project directory:
+
+```bash
+cd thingsboard_automation
+```
+
+### 2. Install Dependencies
+
+```bash
 uv sync
+```
 
-3. Install Playwright Browsers
+### 3. Install Playwright Browsers
+
+```bash
 uv run playwright install
+```
 
-4. Configure Environment Variables
-Create a .env file in the project root.
+### 4. Configure Environment Variables
 
+Create a `.env` file in the project root:
+
+```text
 thingsboard-automation/
-│
 ├── .env
 ├── pyproject.toml
 ├── README.md
 └── src/
+```
 
-</>env
+Add the following values to the `.env` file:
+
+```env
 THINGSBOARD_URL=https://demo.thingsboard.io
 THINGSBOARD_USERNAME=tenant@thingsboard.org
 THINGSBOARD_PASSWORD=tenant
+```
 
+---
 
-# Running Tests
+## Running Tests
 
-Run UI Tests
+### Run UI Tests
+
+```bash
 uv run pytest src/thingsboard_automation/tests/ui -v
+```
 
-Run UI tests in headed mode:
+### Run UI Tests in Headed Mode
+
+```bash
 uv run pytest src/thingsboard_automation/tests/ui -v --headed
+```
 
-Run API Tests
+### Run API Tests
+
+```bash
 uv run pytest src/thingsboard_automation/tests/api -v
+```
 
-Run All Tests
+### Run All Tests
+
+```bash
 uv run pytest src/thingsboard_automation/tests -v
+```
 
-# Test Coverage
-UI Automation
-Login to ThingsBoard
-Navigate to Device Telemetry Dashboard
-Validate telemetry widgets are visible
-Validate widget labels
-Validate widgets are updating
-Validate telemetry values are within an acceptable range
-Capture screenshots as evidence
-API Automation
-Authenticate and obtain JWT token
-Fetch devices and extract Device ID
-Fetch device telemetry
-Validate response structure
-Validate telemetry fields and value types
-Retry API requests when telemetry data is not available
-Test Evidence
+---
 
-# Screenshots generated during UI tests are stored in:
+## Test Coverage
 
+### UI Automation
+
+The UI automation covers the following scenarios:
+
+- Login to ThingsBoard
+- Navigate to the Device Telemetry Dashboard
+- Validate streaming data widgets are visible
+- Validate widget labels:
+  - Temperature
+  - Humidity
+  - Power Consumption
+- Validate that telemetry widgets are updating
+- Validate telemetry values are within an acceptable range
+- Capture screenshots as test evidence
+
+### API Automation
+
+The API automation covers the following scenarios:
+
+- Authenticate using `POST /api/auth/login`
+- Obtain a JWT authentication token
+- Fetch available devices
+- Extract the Device ID
+- Fetch telemetry using:
+
+```text
+GET /api/plugins/telemetry/DEVICE/{deviceId}/values/timeseries
+```
+
+- Validate API response status
+- Validate response structure
+- Validate 3–5 telemetry fields
+- Validate telemetry value types
+- Retry API requests when telemetry data is not immediately available
+
+---
+
+## Test Evidence
+
+Screenshots generated during UI test execution are stored in:
+
+```text
 evidence/ui/
-Test Documentation
-Test cases: test_data/test_cases.xlsx
-Bug reports: test_data/bug_report.xlsx
-Notes
-.env should not be committed to the repository.
-Telemetry fields and ranges may vary depending on the selected device.
-UI selectors may need updates if the ThingsBoard dashboard changes.
+```
+
+---
+
+## Test Documentation
+
+The project includes the following test documentation:
+
+- **Test Cases:** `test_data/test_cases.xlsx`
+- **Bug Reports:** `test_data/bug_report.xlsx`
+
+---
+
+## Technologies Used
+
+- Python
+- Pytest
+- Playwright
+- Requests
+- python-dotenv
+- uv
+
+---
+
+## Notes
+
+- Do not commit the `.env` file to a public repository.
+- Telemetry fields and acceptable ranges may vary depending on the selected device.
+- UI selectors may need to be updated if the ThingsBoard dashboard UI changes.
+- Screenshots are generated during UI test execution.

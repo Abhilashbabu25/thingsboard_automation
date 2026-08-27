@@ -7,7 +7,7 @@ USERNAME = Config.THINGSBOARD_USERNAME
 PASSWORD = Config.THINGSBOARD_PASSWORD
 
 # Login to ThingsBoard and get the authentication token
-def test_get_auth_token():
+def get_auth_token():
     
      headers = {
             "Content-Type": f"application/json"
@@ -22,18 +22,25 @@ def test_get_auth_token():
         timeout=30,
     )
 
-     assert response.status_code == 200
-
+     assert response.status_code == 200, (
+        f"Authentication failed. "
+        f"Status: {response.status_code}, "
+        f"Response: {response.text}"
+    )
      data = response.json()
 
      assert "token" in data
 
      return data["token"]
- 
-# Get all devices for the tenant
-def test_get_all_devices():
-    token = test_get_auth_token()
 
+def test_get_auth_token():
+
+    token = get_auth_token()
+    assert token
+    
+# Get all devices for the tenant
+def get_all_devices():
+    token = get_auth_token()
     headers = {
         "X-Authorization": f"Bearer {token}"
     }
@@ -45,7 +52,7 @@ def test_get_all_devices():
                     "pageSize": 10,
                     "page": 0
                 },
-        
+                timeout=30, 
             )
     devices_response.raise_for_status()
     assert devices_response.status_code == 200
@@ -61,6 +68,12 @@ def test_get_all_devices():
         print("Device Additional Info: ", device.get("additionalInfo", {}))
         print("-----------------------------")
     return devices
+
+def test_get_all_devices():
+
+    token = get_auth_token()
+    devices = get_all_devices(token)
+    assert len(devices) > 0
 
 # Get telemetry data for a specific device with retry mechanism
 def get_telemetry_with_retry(
@@ -109,10 +122,10 @@ def get_telemetry_with_retry(
 def test_get_telemetry_data():
 
     # Step 1: Authenticate
-    token = test_get_auth_token()
+    token = get_auth_token()
 
     # Step 2: Get devices
-    devices = test_get_all_devices()
+    devices = get_all_devices(token)
 
     assert len(devices) > 0, "No devices found"
 
