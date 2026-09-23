@@ -39,7 +39,7 @@ def test_get_auth_token():
     assert token
     
 # Get all devices for the tenant
-def get_all_devices():
+def get_all_devices(token):
     token = get_auth_token()
     headers = {
         "X-Authorization": f"Bearer {token}"

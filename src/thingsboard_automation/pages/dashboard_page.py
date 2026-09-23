@@ -10,18 +10,15 @@ class DashboardPage:
         # -------------------------
 
         self.temperature_locator = self.page.locator(
-            "YOUR_TEMPERATURE_VALUE_SELECTOR"
-            #"//div[contains(@class,'widget')][.//div[normalize-space()='Temperature']]//span[contains(@class,'widget-value')]"
+            "//div[contains(@class,'widget')][.//div[normalize-space()='Temperature']]//span[contains(@class,'widget-value')]"
         )
 
         self.humidity_locator = self.page.locator(
-            "YOUR_HUMIDITY_VALUE_SELECTOR"
-            #"//div[contains(@class,'widget')][.//div[normalize-space()='Humidity']]//span[contains(@class,'widget-value')]"
+            "//div[contains(@class,'widget')][.//div[normalize-space()='Humidity']]//span[contains(@class,'widget-value')]"
         )
 
         self.power_locator = self.page.locator(
-            "YOUR_POWER_VALUE_SELECTOR"
-            #"//div[contains(@class,'widget')][.//div[normalize-space()='Power Consumption']]//span[contains(@class,'widget-value')]"
+            "//div[contains(@class,'widget')][.//div[normalize-space()='Power Consumption']]//span[contains(@class,'widget-value')]"
         )
 
     def open_device_telemetry_dashboard(self):

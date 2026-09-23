@@ -41,14 +41,12 @@ thingsboard-automation/
 │       │   └── config.py
 │       │
 │       └── evidence/
-│           └── ui/
-│             └── screenshots/
+│           ├── ui/
+│           │   └── screenshots/
+│           └── reports/
+│               └── test_ui_reports.html
 │
-├── evidence/
-│   └── ui/
-│       └── screenshots/
-│
-├── test_data/
+├── documentation/
 │   ├── test_cases.xlsx
 │   └── bug_report.xlsx
 │
@@ -211,8 +209,8 @@ evidence/ui/
 
 The project includes the following test documentation:
 
-- **Test Cases:** `test_data/test_cases.xlsx`
-- **Bug Reports:** `test_data/bug_report.xlsx`
+- **Test Cases:** `documentation/test_cases.xlsx`
+- **Bug Reports:** `documentation/bug_report.xlsx`
 
 ---
 
