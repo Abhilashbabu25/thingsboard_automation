@@ -40,7 +40,6 @@ def test_get_auth_token():
     
 # Get all devices for the tenant
 def get_all_devices(token):
-    token = get_auth_token()
     headers = {
         "X-Authorization": f"Bearer {token}"
     }
@@ -71,7 +70,6 @@ def get_all_devices(token):
 
 # Test to verify that at least one device is returned
 def test_get_all_devices():
-
     token = get_auth_token()
     devices = get_all_devices(token)
     assert len(devices) > 0
@@ -111,8 +109,8 @@ def get_telemetry_with_retry(
             f"No telemetry data. "
             f"Retry {attempt}/{max_attempts}"
         )
-
-        time.sleep(interval)
+        if attempt < max_attempts:
+            time.sleep(interval)
 
     raise AssertionError(
         f"No telemetry data received after "
@@ -174,6 +172,7 @@ def test_get_telemetry_data():
         )
         print(f"{field}: Validated that the list contains telemetry values")
          
+        #get the latest telemetry value
         latest_value = values[-1]
 
         assert "ts" in latest_value, (

@@ -200,7 +200,9 @@ GET /api/plugins/telemetry/DEVICE/{deviceId}/values/timeseries
 Screenshots generated during UI test execution are stored in:
 
 ```text
-evidence/ui/
+evidence/ui/screenshots/
+evidence/reports/test_ui_reports.html
+evidence/api
 ```
 
 ---
