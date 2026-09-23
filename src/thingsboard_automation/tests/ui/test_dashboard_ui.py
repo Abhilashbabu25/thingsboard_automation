@@ -5,7 +5,6 @@ from pathlib import Path
 from thingsboard_automation.pages.dashboard_page import DashboardPage
 from thingsboard_automation.pages.login_page import LoginPage
 
-
 # Test to verify the login functionality of the ThingsBoard application
 def test_login_page(page: Page) -> None:
     page.goto(Config.THINGSBOARD_URL)
@@ -33,7 +32,7 @@ def test_login_page(page: Page) -> None:
             timeout=5000
         )
 
-        login_error = "Invalid username or password"
+        login_status = "Invalid username or password"
 
     except:
         try:
@@ -42,27 +41,27 @@ def test_login_page(page: Page) -> None:
                 timeout=5000
             )
 
-            login_error = "User account is not active"
+            login_status = "User account is not active"
 
         except:
-            login_error = None
+            login_status = "success"
 
     # If any login error is found, capture screenshot
-    if login_error:
+    if login_status != "success":
 
-        print(f"Login failed: {login_error}")
+        print(f"Login failed: {login_status}")
 
         # Create evidence/ui folder if it does not exist
         screenshot_dir = Path("src/thingsboard_automation/evidence/ui")
         screenshot_dir.mkdir(parents=True, exist_ok=True)
 
         # Capture login failure screenshot
-        page.screenshot(path=str(screenshot_dir / "login_error.png"),
+        page.screenshot(path=str(screenshot_dir / "login_status.png"),
             full_page=True
         )
 
         # Fail the test
-        assert False, f"Login failed: {login_error}"
+        assert False, f"Login failed: {login_status}"
         
     
 # Test to verify that the dashboard page is loaded and the expected widgets are visible

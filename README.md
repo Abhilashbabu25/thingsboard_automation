@@ -40,7 +40,9 @@ thingsboard-automation/
 │       ├── utils/
 │       │   └── config.py
 │       │
-│       └── main.py
+│       └── evidence/
+│           └── ui/
+│             └── screenshots/
 │
 ├── evidence/
 │   └── ui/

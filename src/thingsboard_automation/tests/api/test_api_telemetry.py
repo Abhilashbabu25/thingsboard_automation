@@ -69,6 +69,7 @@ def get_all_devices():
         print("-----------------------------")
     return devices
 
+# Test to verify that at least one device is returned
 def test_get_all_devices():
 
     token = get_auth_token()
@@ -166,25 +167,30 @@ def test_get_telemetry_data():
         assert isinstance(values, list), (
             f"{field} should contain a list"
         )
-
+        print(f"{field}: Validated that the value is a list")
+        
         assert len(values) > 0, (
             f"{field} contains no telemetry values"
         )
-
+        print(f"{field}: Validated that the list contains telemetry values")
+         
         latest_value = values[-1]
 
         assert "ts" in latest_value, (
             f"Timestamp missing for {field}"
         )
-
+        print(f"{field}: Timestamp field exists")
+        
         assert "value" in latest_value, (
             f"Value missing for {field}"
         )
-
+        print(f"{field}: Value field exists")
+        
         assert isinstance(latest_value["ts"], int), (
             f"Timestamp should be an integer for {field}"
         )
-
+        print(f"{field}: Timestamp is an integer")
+        
         # Validate numeric value where applicable
         try:
             float(latest_value["value"])
