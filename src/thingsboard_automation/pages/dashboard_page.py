@@ -1,5 +1,3 @@
-import time
-
 from playwright.sync_api import Page,expect, TimeoutError as PlaywrightTimeoutError
 
 # Page class for interacting with the Dashboard
@@ -50,7 +48,7 @@ class DashboardPage:
                 timeout=timeout
             )
             
-            current_value = value_locator.inner_text().strip
+            current_value = value_locator.inner_text().strip()
             
             print(
                 f"{widget_name} updated:"
@@ -64,23 +62,7 @@ class DashboardPage:
                 f"{widget_name} did not update"
                 f"within {timeout/1000} seconds"
             )
-
-        # for attempt in range(1, attempts + 1):
-
-        #     time.sleep(interval)
-
-        #     current_value = value_locator.inner_text()
-
-        #     print(
-        #         f"{widget_name} - Attempt {attempt}: "
-        #         f"{current_value}"
-        #     )
-
-        #     if current_value != previous_value:
-        #         return True
-
-        # return False
-        
+            return False     
 
     def verify_all_widgets_are_updating(self):
 
