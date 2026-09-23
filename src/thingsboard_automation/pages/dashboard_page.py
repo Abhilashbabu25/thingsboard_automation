@@ -31,8 +31,6 @@ class DashboardPage:
         self,
         widget_name,
         value_locator,
-        # attempts=5,
-        # interval=3,
         timeout=15000
     ):
         previous_value = value_locator.inner_text().strip()

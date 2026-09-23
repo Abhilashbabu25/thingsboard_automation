@@ -1,4 +1,9 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import (
+    Page, 
+    expect,
+    TimeoutError as PlaywrightTimeoutError
+)
+from thingsboard_automation.pages import login_page
 from thingsboard_automation.utils.config import Config
 from pathlib import Path
 from thingsboard_automation.pages.dashboard_page import DashboardPage
@@ -6,12 +11,8 @@ from thingsboard_automation.pages.login_page import LoginPage
 
 # Test to verify the login functionality of the ThingsBoard application
 def test_login_page(page: Page) -> None:
-    page.goto(Config.THINGSBOARD_URL)
-    page.get_by_role("textbox", name="Username (email)").click()
-    page.get_by_role("textbox", name="Username (email)").fill(Config.THINGSBOARD_USERNAME)
-    page.get_by_text("Password", exact=True).click()
-    page.get_by_role("textbox", name="Password").fill(Config.THINGSBOARD_PASSWORD)
-    page.get_by_role("button", name="Sign in").click()
+    login_page = LoginPage(page)
+    login_page.open_and_login()
     
     # Define both possible login errors
     invalid_credentials_error = page.get_by_text(
@@ -33,7 +34,7 @@ def test_login_page(page: Page) -> None:
 
         login_status = "Invalid username or password"
 
-    except:
+    except PlaywrightTimeoutError:
         try:
             inactive_account_error.wait_for(
                 state="visible",
@@ -42,7 +43,7 @@ def test_login_page(page: Page) -> None:
 
             login_status = "User account is not active"
 
-        except:
+        except PlaywrightTimeoutError:
             login_status = "success"
 
     # If any login error is found, capture screenshot
@@ -94,8 +95,7 @@ def test_streaming_widgets_are_updating(page: Page):
     
     dashboard_page = DashboardPage(page)
     dashboard_page.open_device_telemetry_dashboard()
-    # Login and navigate to the Device Telemetry Dashboard
-    # dashboard_page.open_dashboard()
+
 
     results = dashboard_page.verify_all_widgets_are_updating()
 
